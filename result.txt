@@ -1,0 +1,4 @@
+vless://00000000-0000-0000-0000-000000000000@example.invalid:443
+vmess://eyJ0ZXN0Ijp0cnVlfQ==
+trojan://test@example.invalid:443
+ss://test@example.invalid:443
