@@ -44,15 +44,8 @@ def parse_links(text):
 
 
 def main():
-    Path(OUTPUT_FILE).write_text("", encoding="utf-8")
-
     sources = Path(INPUT_FILE)
     all_links = []
-
-    sample = Path("sample.txt")
-    if sample.exists():
-        test_content = sample.read_text(encoding="utf-8")
-        all_links.extend(parse_links(test_content))
 
     if sources.exists():
         for url in sources.read_text(encoding="utf-8").splitlines():
@@ -76,5 +69,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
