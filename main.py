@@ -53,11 +53,10 @@ def parse_links(text):
 
 def main():
     sources = Path(INPUT_FILE)
+    output = Path(OUTPUT_FILE)
 
     if not sources.exists():
         sources.write_text("", encoding="utf-8")
-        print("Создан sources.txt. Добавь публичные источники.")
-        return
 
     all_links = []
 
@@ -73,7 +72,7 @@ def main():
 
     unique_links = list(dict.fromkeys(all_links))
 
-    Path(OUTPUT_FILE).write_text(
+    output.write_text(
         "\n".join(unique_links),
         encoding="utf-8"
     )
@@ -83,3 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
