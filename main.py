@@ -41,6 +41,11 @@ def fetch_source(url):
 
 def parse_links(text):
     links = []
+        sample = Path("sample.txt")
+
+    if sample.exists():
+        test_content = sample.read_text(encoding="utf-8")
+        all_links.extend(parse_links(test_content))
 
     for line in text.splitlines():
         line = line.strip()
