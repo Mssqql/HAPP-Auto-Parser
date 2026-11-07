@@ -74,11 +74,15 @@ def main():
             print(f"  Найдено строк подходящего формата: {len(links)}")
             all_links.extend(links)
 
-    unique_links = list(dict.fromkeys(all_links))
+    unique_links = list(dict.fromkeys(all_if unique_links:
+    output_text = "\n".join(unique_links)
+else:
+    output_text = "Источники не добавлены или данные не найдены."
 
-    Path(OUTPUT_FILE).write_text(
-        "\n".join(unique_links),
-        encoding="utf-8"
+Path(OUTPUT_FILE).write_text(
+    output_text,
+    encoding="utf-8"
+)
     )
 
     print("\n========== ИТОГ ==========")
