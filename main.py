@@ -19,7 +19,6 @@ def fetch_source(url):
 
         with urllib.request.urlopen(request, timeout=15) as response:
             data = response.read(2_000_000)
-            print(f"  Получено данных: {len(data)} байт")
 
         text = data.decode("utf-8", errors="replace")
 
@@ -27,14 +26,13 @@ def fetch_source(url):
             try:
                 decoded = base64.b64decode(text.strip(), validate=True)
                 text = decoded.decode("utf-8", errors="replace")
-                print("  Данные декодированы из Base64")
             except Exception:
-                print("  Base64-декодирование не выполнено")
+                pass
 
         return text
 
     except Exception as error:
-        print(f"  Ошибка загрузки: {error}")
+        print(f"Ошибка загрузки: {error}")
         return ""
 
 
@@ -43,7 +41,6 @@ def parse_links(text):
 
     for line in text.splitlines():
         line = line.strip()
-
         if line.lower().startswith(PROTOCOLS):
             links.append(line)
 
@@ -54,42 +51,39 @@ def main():
     sources = Path(INPUT_FILE)
     all_links = []
 
-    if not sources.exists():
-        print("ОШИБКА: sources.txt не найден")
-    else:
+    if sources.exists():
         urls = [
             line.strip()
             for line in sources.read_text(encoding="utf-8").splitlines()
             if line.strip() and not line.strip().startswith("#")
         ]
 
-        print(f"Источников для обработки: {len(urls)}")
+        print(f"Источников: {len(urls)}")
 
-        for number, url in enumerate(urls, start=1):
-            print(f"\nИсточник {number}: {url}")
-
+        for url in urls:
+            print(f"Обработка: {url}")
             content = fetch_source(url)
             links = parse_links(content)
-
-            print(f"  Найдено строк подходящего формата: {len(links)}")
+            print(f"Найдено строк: {len(links)}")
             all_links.extend(links)
 
-    unique_links = list(dict.fromkeys(all_if unique_links:
-    output_text = "\n".join(unique_links)
-else:
-    output_text = "Источники не добавлены или данные не найдены."
+    unique_links = list(dict.fromkeys(all_links))
 
-Path(OUTPUT_FILE).write_text(
-    output_text,
-    encoding="utf-8"
-)
+    if unique_links:
+        output_text = "\n".join(unique_links)
+    else:
+        output_text = "Источники не добавлены или данные не найдены."
+
+    Path(OUTPUT_FILE).write_text(
+        output_text,
+        encoding="utf-8"
     )
 
-    print("\n========== ИТОГ ==========")
-    print(f"Всего найдено: {len(all_links)}")
-    print(f"Уникальных строк: {len(unique_links)}")
+    print("========== ИТОГ ==========")
+    print(f"Всего найдено: {len(unique_links)}")
     print(f"Файл создан: {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
     main()
+
