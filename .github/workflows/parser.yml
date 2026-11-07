@@ -4,8 +4,7 @@ name: HAPP Auto Parser
 on:
   workflow_dispatch:
   schedule:
-   schedule:
-  - cron: "0 * * * *"
+    - cron: "0 * * * *"
 
 permissions:
   contents: write
@@ -35,4 +34,3 @@ jobs:
             git commit -m "Update HAPP parser result"
             git push
           fi
-
